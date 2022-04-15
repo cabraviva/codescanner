@@ -147,6 +147,12 @@ while (cmd !== 'exit') {
         console.log('Example:')
         console.log('  scan (.*?); // scan for any code that ends with a semicolon')
         console.log('  scan Hello World // scan for the string "Hello World"')
+    } else if (cmd.startsWith('scanmy')) {
+        const args = cmd.split(' ')
+        args.shift()
+        const argsf = args.join(' ')
+        const regex = new RegExp(argsf, 'g')
+        scandDirMy(regex)
     } else if (cmd.startsWith('scan')) {
         const args = cmd.split(' ')
         args.shift()
@@ -159,12 +165,6 @@ while (cmd !== 'exit') {
         const argsf = args.join(' ')
         const regex = new RegExp(argsf, 'gi')
         scandDir(regex)
-    } else if (cmd.startsWith('scanmy')) {
-        const args = cmd.split(' ')
-        args.shift()
-        const argsf = args.join(' ')
-        const regex = new RegExp(argsf, 'g')
-        scandDirMy(regex)
     } else {
         console.log('Unknown command: ' + cmd)
         console.log('Type "help" for a list of available commands.')
