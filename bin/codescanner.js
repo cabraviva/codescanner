@@ -90,7 +90,7 @@ function scandDir (regex) {
             return
         }
 
-        if (ign.some(ignf => file.includes(ignf))) {
+        if (ign.some(ignf => file.includes(ignf.replace('\r', '')))) {
             // File is in ignore list
             return
         }
@@ -122,7 +122,7 @@ function scandDirMy (regex) {
             return
         }
 
-        if (ign.some(ignf => file.includes(ignf))) {
+        if (ign.some(ignf => file.includes(ignf.replace('\r', '')))) {
             // File is in ignore list
             return
         }
