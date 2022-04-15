@@ -44,12 +44,41 @@ function readdirSyncRecursive (dir) {
     return results
 }
 
+const ignoreFileEndings = [
+    '.mp4',
+    '.mp3',
+    '.jpg',
+    '.jpeg',
+    '.png',
+    '.gif',
+    '.ico',
+    '.webp',
+    '.ttf',
+    '.exe',
+    '.zip',
+    '.rar',
+    '.7z',
+    '.pdf',
+    '.doc',
+    '.docx',
+    '.xls',
+    '.xlsx',
+    '.ppt',
+    '.pptx',
+    '.tar'
+]
+
 const _sessionname = coolname()
 
 function scandDir (regex) {
     const files = readdirSyncRecursive(process.cwd())
     console.log('------------------------------------------------------------------------------------------------------------------------')
     files.forEach(file => {
+        // Don't scan ignored files
+        if (ignoreFileEndings.some(ending => file.endsWith(ending))) {
+            return
+        }
+
         try {
             const filecontent = fs.readFileSync(file, 'utf8').toString('utf8')
             const _matches = [...filecontent.matchAll(regex)]
