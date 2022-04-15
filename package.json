@@ -1,0 +1,26 @@
+{
+  "name": "codescanner",
+  "version": "1.0.0",
+  "description": "Do you know this problem when you need to search for some specific code piece in your source code? I gotchu!",
+  "main": "bin/codescanner.js",
+  "bin": {
+    "codescanner": "bin/codescanner.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/greencoder001/codescan.git"
+  },
+  "keywords": [
+    "codescan",
+    "codescanner"
+  ],
+  "author": "greencoder001",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/greencoder001/codescan/issues"
+  },
+  "homepage": "https://github.com/greencoder001/codescan#readme"
+}
