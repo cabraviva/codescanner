@@ -70,12 +70,28 @@ const ignoreFileEndings = [
 
 const _sessionname = coolname()
 
+function getIgnore () {
+    const IGNORE_PATH = path.join(process.cwd(), '.codescannerignore')
+    if (fs.existsSync(IGNORE_PATH)) {
+        const ignore = fs.readFileSync(IGNORE_PATH, 'utf8').toString('utf8').split('\n')
+        return ignore
+    }
+
+    return []
+}
+
 function scandDir (regex) {
     const files = readdirSyncRecursive(process.cwd())
+    const ign = getIgnore()
     console.log('------------------------------------------------------------------------------------------------------------------------')
     files.forEach(file => {
         // Don't scan ignored files
         if (ignoreFileEndings.some(ending => file.endsWith(ending))) {
+            return
+        }
+
+        if (ign.some(ignf => file.includes(ignf))) {
+            // File is in ignore list
             return
         }
 
@@ -98,10 +114,16 @@ function scandDir (regex) {
 
 function scandDirMy (regex) {
     const files = readdirSyncRecursive(process.cwd())
+    const ign = getIgnore()
     console.log('------------------------------------------------------------------------------------------------------------------------')
     files.forEach(file => {
         // Don't scan ignored files
         if (ignoreFileEndings.some(ending => file.endsWith(ending))) {
+            return
+        }
+
+        if (ign.some(ignf => file.includes(ignf))) {
+            // File is in ignore list
             return
         }
 
