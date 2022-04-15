@@ -50,15 +50,19 @@ function scandDir (regex) {
     const files = readdirSyncRecursive(process.cwd())
     console.log('------------------------------------------------------------------------------------------------------------------------')
     files.forEach(file => {
-        const filecontent = fs.readFileSync(file, 'utf8').toString('utf8')
-        const _matches = [...filecontent.matchAll(regex)]
+        try {
+            const filecontent = fs.readFileSync(file, 'utf8').toString('utf8')
+            const _matches = [...filecontent.matchAll(regex)]
 
-        for (const match of _matches) {
-            // Get line number
-            const line = filecontent.substring(0, match.index).split('\n').length
+            for (const match of _matches) {
+                // Get line number
+                const line = filecontent.substring(0, match.index).split('\n').length
 
-            console.log(`${_sessionname}, I found a match in ${file} at line ${line}!`)
-            console.log('------------------------------------------------------------------------------------------------------------------------')
+                console.log(`${_sessionname}, I found a match in ${file} at line ${line}!`)
+                console.log('------------------------------------------------------------------------------------------------------------------------')
+            }
+        } catch (e) {
+            console.log(`${_sessionname}, we have a problem! Seems like ${file} is too large to scan!`)
         }
     })
 }
