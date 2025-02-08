@@ -3,7 +3,7 @@ console.log('Welcome to codescanner!')
 console.log('Enter a command (try "help"):')
 
 function randomFromArray(arr) {
-  return arr[Math.floor(Math.random() * arr.length)]
+    return arr[Math.floor(Math.random() * arr.length)]
 }
 
 const os = require('os')
@@ -12,7 +12,7 @@ const path = require('path')
 
 const username = os.userInfo().username
 
-function coolname () {
+function coolname() {
     return randomFromArray([
         'Superstar',
         'My Lord',
@@ -29,16 +29,20 @@ function coolname () {
     ])
 }
 
-function readdirSyncRecursive (dir) {
+function readdirSyncRecursive(dir) {
     var results = []
     var list = fs.readdirSync(dir)
-    list.forEach(function(file) {
-        file = path.join(dir, file)
-        var stat = fs.statSync(file)
-        if (stat && stat.isDirectory()) {
-            results = results.concat(readdirSyncRecursive(file))
-        } else {
-            results.push(file)
+    list.forEach(function (file) {
+        try {
+            file = path.join(dir, file)
+            var stat = fs.statSync(file)
+            if (stat && stat.isDirectory()) {
+                results = results.concat(readdirSyncRecursive(file))
+            } else {
+                results.push(file)
+            }
+        } catch {
+
         }
     })
     return results
@@ -70,7 +74,7 @@ const ignoreFileEndings = [
 
 const _sessionname = coolname()
 
-function getIgnore () {
+function getIgnore() {
     const IGNORE_PATH = path.join(process.cwd(), '.codescannerignore')
     if (fs.existsSync(IGNORE_PATH)) {
         const ignore = fs.readFileSync(IGNORE_PATH, 'utf8').toString('utf8').split('\n')
@@ -80,7 +84,7 @@ function getIgnore () {
     return []
 }
 
-function scandDir (regex) {
+function scandDir(regex) {
     const files = readdirSyncRecursive(process.cwd())
     const ign = getIgnore()
     console.log('------------------------------------------------------------------------------------------------------------------------')
@@ -112,7 +116,7 @@ function scandDir (regex) {
     })
 }
 
-function scandDirMy (regex) {
+function scandDirMy(regex) {
     const files = readdirSyncRecursive(process.cwd())
     const ign = getIgnore()
     console.log('------------------------------------------------------------------------------------------------------------------------')
@@ -153,7 +157,7 @@ const rl = require('readline-sync')
 let cmd = ''
 while (cmd !== 'exit') {
     cmd = rl.question('> ')
-    
+
     if (cmd === 'exit') {
         console.log()
         console.log(`Goodbye ${_sessionname}!`)
